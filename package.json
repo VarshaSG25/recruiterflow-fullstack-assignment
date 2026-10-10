@@ -7,9 +7,9 @@
     "test:backend": "npm --prefix backend test",
     "test:frontend": "npm --prefix frontend test",
     "test:all": "npm --prefix backend test && npm --prefix frontend test && npm --prefix qa test",
-    "start:backend": "npm --prefix backend start",
-    "start:frontend": "npm --prefix frontend dev",
-    "typecheck": "npm --prefix frontend typecheck && npm --prefix backend build"
+    "start:backend": "npm --prefix backend run start",
+    "start:frontend": "npm --prefix frontend run dev",
+    "typecheck": "npm --prefix frontend run typecheck && npm --prefix backend run build"
   },
   "keywords": [
     "recruiterflow",
