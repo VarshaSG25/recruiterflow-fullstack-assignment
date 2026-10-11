@@ -21,7 +21,8 @@ import {
   AlertCircle, 
   X,
   CreditCard,
-  Users
+  Users,
+  Compass
 } from 'lucide-react';
 
 const CATEGORIES: (ExpenseCategory | 'All')[] = [
@@ -89,15 +90,15 @@ export const ExpensesPage: React.FC = () => {
   const getCategoryBadgeClass = (category: ExpenseCategory) => {
     switch (category) {
       case 'Food':
-        return 'bg-amber-50 text-amber-700 border-amber-200';
+        return 'bg-amber-950/60 text-amber-300 border-amber-500/30';
       case 'Travel':
-        return 'bg-blue-50 text-blue-700 border-blue-200';
+        return 'bg-sky-950/60 text-sky-300 border-sky-500/30';
       case 'Stay':
-        return 'bg-purple-50 text-purple-700 border-purple-200';
+        return 'bg-purple-950/60 text-purple-300 border-purple-500/40';
       case 'Activities':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        return 'bg-emerald-950/60 text-emerald-300 border-emerald-500/30';
       default:
-        return 'bg-slate-100 text-slate-700 border-slate-200';
+        return 'bg-slate-900/60 text-slate-300 border-slate-500/30';
     }
   };
 
@@ -108,16 +109,16 @@ export const ExpensesPage: React.FC = () => {
         <div 
           role="status"
           aria-live="polite"
-          className="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 shadow-sm transition-all"
+          className="flex items-center justify-between p-4 bg-purple-900/40 border border-purple-400/40 rounded-2xl text-purple-100 shadow-lg backdrop-blur-xl transition-all"
         >
           <div className="flex items-center gap-3">
-            <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-            <p className="text-sm font-medium">{notification}</p>
+            <CheckCircle className="w-5 h-5 text-fuchsia-400 shrink-0" />
+            <p className="text-sm font-semibold">{notification}</p>
           </div>
           <button
             type="button"
             onClick={() => dispatch(clearNotification())}
-            className="p-1 hover:bg-emerald-100 rounded-lg text-emerald-700"
+            className="p-1 hover:bg-purple-800/50 rounded-lg text-purple-300 transition-colors"
             aria-label="Dismiss notification"
           >
             <X className="w-4 h-4" />
@@ -125,34 +126,70 @@ export const ExpensesPage: React.FC = () => {
         </div>
       )}
 
-      {/* Header section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Trip Expenses
-          </h1>
-          <p className="text-sm text-slate-500 mt-1">
-            Tracking shared expenses and net balances for Goa trip members
-          </p>
+      {/* Hero Header section with TravelTally brand and 2D Travel Pill Cards */}
+      <div className="glass-purple-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+        {/* Subtle glowing orb in card */}
+        <div className="absolute -top-16 -right-16 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/60 border border-purple-400/30 text-purple-300 text-xs font-mono font-bold tracking-wider uppercase">
+              <Compass className="w-3.5 h-3.5 text-fuchsia-400" />
+              <span>Track • Split • Travel</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+              <span>TravelTally</span>
+              <span className="text-sm font-bold font-mono text-purple-300 px-3 py-1 rounded-xl bg-purple-900/50 border border-purple-500/30">
+                Goa Edition
+              </span>
+            </h1>
+            <p className="text-sm sm:text-base text-purple-200/80 max-w-xl">
+              Shared trip expense tracking with zero-loss paisa splitting for Aarav, Diya, Kabir, Meera, and Rohan.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowSettlementModal(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold bg-purple-900/50 border border-purple-400/40 text-purple-100 hover:bg-purple-800/60 hover:border-purple-400/70 shadow-lg shadow-purple-950/60 transition-all hover:-translate-y-0.5"
+            >
+              <CreditCard className="w-4 h-4 text-fuchsia-400" />
+              <span>Settle Up Debts</span>
+            </button>
+
+            <Link
+              to="/expenses/new"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold neon-btn text-white transition-all hover:-translate-y-0.5 active:scale-95"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Expense</span>
+            </Link>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => setShowSettlementModal(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-2xs transition-all"
-          >
-            <CreditCard className="w-4 h-4 text-indigo-600" />
-            <span>Settle Up</span>
-          </button>
-
-          <Link
-            to="/expenses/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200 transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add expense</span>
-          </Link>
+        {/* 2D Aesthetic Travel Activity Highlights */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mt-6 pt-6 border-t border-purple-500/20 text-xs">
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/15 text-purple-200">
+            <span className="text-base">🏡</span>
+            <span className="font-semibold truncate">Villa Booking</span>
+          </div>
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/15 text-purple-200">
+            <span className="text-base">🍤</span>
+            <span className="font-semibold truncate">Beach Shack</span>
+          </div>
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/15 text-purple-200">
+            <span className="text-base">🤿</span>
+            <span className="font-semibold truncate">Scuba Diving</span>
+          </div>
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/15 text-purple-200">
+            <span className="text-base">🛵</span>
+            <span className="font-semibold truncate">Scooter Rental</span>
+          </div>
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/15 text-purple-200">
+            <span className="text-base">🚕</span>
+            <span className="font-semibold truncate">Airport Cab</span>
+          </div>
         </div>
       </div>
 
@@ -160,14 +197,14 @@ export const ExpensesPage: React.FC = () => {
       <section aria-labelledby="balances-heading" className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-slate-500" />
-            <h2 id="balances-heading" className="text-base font-bold text-slate-800">
-              Member Balances
+            <Users className="w-4 h-4 text-purple-300" />
+            <h2 id="balances-heading" className="text-base font-bold text-white tracking-wide">
+              Friend Balances
             </h2>
           </div>
-          <div className="text-xs font-medium text-slate-500">
-            Net balance sum: <span className="font-semibold text-slate-700">{formatPaiseToRupees(totalNetPaise)}</span>
-            {totalNetPaise === 0 && <span className="text-emerald-600 ml-1">✓ Balanced</span>}
+          <div className="text-xs font-mono text-purple-300">
+            Net balance sum: <span className="font-bold text-white">{formatPaiseToRupees(totalNetPaise)}</span>
+            {totalNetPaise === 0 && <span className="text-emerald-400 ml-1.5 font-bold">✓ Balanced</span>}
           </div>
         </div>
 
@@ -179,23 +216,23 @@ export const ExpensesPage: React.FC = () => {
             return (
               <div
                 key={b.memberId}
-                className={`p-4 rounded-2xl border transition-all backdrop-blur-md hover:-translate-y-0.5 hover:shadow-md ${
+                className={`p-4 rounded-2xl border transition-all backdrop-blur-xl hover:-translate-y-1 hover:shadow-xl ${
                   isGetsBack
-                    ? 'bg-gradient-to-br from-emerald-50/90 to-teal-50/70 border-emerald-200/90 shadow-xs'
+                    ? 'bg-gradient-to-br from-emerald-950/60 to-purple-950/40 border-emerald-500/40 shadow-emerald-950/20'
                     : isOwes
-                    ? 'bg-gradient-to-br from-rose-50/90 to-orange-50/70 border-rose-200/90 shadow-xs'
-                    : 'bg-white/85 border-slate-200/90 shadow-xs'
+                    ? 'bg-gradient-to-br from-rose-950/60 to-purple-950/40 border-rose-500/40 shadow-rose-950/20'
+                    : 'bg-purple-950/50 border-purple-500/25 shadow-black/40'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-bold text-slate-900 text-sm">{b.name}</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-bold text-white text-sm tracking-wide">{b.name}</span>
                   <span
-                    className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${
                       isGetsBack
-                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                        ? 'bg-emerald-900/60 text-emerald-300 border-emerald-400/40'
                         : isOwes
-                        ? 'bg-rose-100 text-rose-800 border border-rose-200'
-                        : 'bg-slate-100 text-slate-600 border border-slate-200'
+                        ? 'bg-rose-900/60 text-rose-300 border-rose-400/40'
+                        : 'bg-purple-900/60 text-purple-300 border-purple-400/30'
                     }`}
                   >
                     {isGetsBack ? 'credit' : isOwes ? 'debt' : 'settled'}
@@ -204,15 +241,15 @@ export const ExpensesPage: React.FC = () => {
                 <div
                   className={`text-base font-extrabold tracking-tight ${
                     isGetsBack
-                      ? 'text-emerald-700'
+                      ? 'text-emerald-400'
                       : isOwes
-                      ? 'text-rose-700'
-                      : 'text-slate-600'
+                      ? 'text-rose-400'
+                      : 'text-purple-300'
                   }`}
                 >
                   {b.statusText}
                 </div>
-                <div className="text-[11px] text-slate-500 mt-1 flex justify-between">
+                <div className="text-[11px] font-mono text-purple-300/80 mt-1.5 flex justify-between border-t border-purple-500/15 pt-1.5">
                   <span>Paid: {formatPaiseToRupees(b.paidPaise)}</span>
                   <span>Share: {formatPaiseToRupees(b.owedPaise)}</span>
                 </div>
@@ -223,22 +260,22 @@ export const ExpensesPage: React.FC = () => {
       </section>
 
       {/* Filter & Total Summary Toolbar */}
-      <section className="bg-white/80 backdrop-blur-md p-4 sm:p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
+      <section className="glass-purple-card p-4 sm:p-6 rounded-3xl space-y-5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Category filter pills */}
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1.5 flex items-center gap-1">
-              <Filter className="w-3.5 h-3.5" /> Category:
+            <span className="text-xs font-semibold uppercase tracking-wider text-purple-400 mr-1.5 flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5 text-fuchsia-400" /> Category:
             </span>
             {CATEGORIES.map(cat => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => dispatch(setCategoryFilter(cat))}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   selectedCategory === cat
-                    ? 'bg-slate-900 text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-900/60 border border-purple-400/40'
+                    : 'bg-purple-950/60 text-purple-300 hover:text-white hover:bg-purple-900/60 border border-purple-500/20'
                 }`}
               >
                 {cat}
@@ -247,10 +284,10 @@ export const ExpensesPage: React.FC = () => {
           </div>
 
           {/* Total & sample reset */}
-          <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100">
+          <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-3 md:pt-0 border-purple-500/20">
             <div className="text-right">
-              <div className="text-xs text-slate-500 font-medium">Total shown</div>
-              <div className="text-xl font-extrabold text-slate-900 tracking-tight">
+              <div className="text-xs text-purple-300 font-medium">Total shown</div>
+              <div className="text-2xl font-black text-white font-mono tracking-tight text-neon-glow">
                 {formatPaiseToRupees(currentTotalPaise)}
               </div>
             </div>
@@ -258,10 +295,10 @@ export const ExpensesPage: React.FC = () => {
             <button
               type="button"
               onClick={() => dispatch(resetToSampleData())}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-purple-200 hover:text-white bg-purple-900/60 hover:bg-purple-800/70 border border-purple-500/30 rounded-xl transition-all shadow-xs"
               title="Reset data back to original Goa trip sample"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 text-fuchsia-400" />
               <span>Reset sample</span>
             </button>
           </div>
@@ -269,12 +306,12 @@ export const ExpensesPage: React.FC = () => {
 
         {/* Expenses Table or Empty State */}
         {filteredExpenses.length === 0 ? (
-          <div className="text-center py-16 px-4 border border-dashed border-slate-200 rounded-xl">
-            <div className="w-12 h-12 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3">
+          <div className="text-center py-16 px-4 border border-dashed border-purple-500/30 rounded-2xl bg-purple-950/20">
+            <div className="w-12 h-12 mx-auto rounded-full bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-3">
               <AlertCircle className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-slate-900">No expenses found</h3>
-            <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">
+            <h3 className="text-base font-bold text-white">No expenses found</h3>
+            <p className="text-sm text-purple-300/80 mt-1 max-w-sm mx-auto">
               {selectedCategory !== 'All'
                 ? `There are no recorded expenses in the "${selectedCategory}" category.`
                 : 'No expenses have been added yet for this trip.'}
@@ -282,7 +319,7 @@ export const ExpensesPage: React.FC = () => {
             <div className="mt-5">
               <Link
                 to="/expenses/new"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold neon-btn text-white shadow-md"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add first expense</span>
@@ -290,81 +327,79 @@ export const ExpensesPage: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="overflow-x-auto -mx-4 sm:mx-0">
-            <div className="inline-block min-w-full align-middle">
-              <table className="min-w-full divide-y divide-slate-200 text-left">
-                <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50/50 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                    <th scope="col" className="py-3 px-4">Date</th>
-                    <th scope="col" className="py-3 px-4">Description</th>
-                    <th scope="col" className="py-3 px-4">Category</th>
-                    <th scope="col" className="py-3 px-4">Paid by</th>
-                    <th scope="col" className="py-3 px-4 text-right">Amount</th>
-                    <th scope="col" className="py-3 px-4">Split</th>
-                    <th scope="col" className="py-3 px-4 text-center">Action</th>
+          <div className="overflow-x-auto -mx-4 sm:mx-0 rounded-2xl border border-purple-500/20 bg-purple-950/30">
+            <table className="min-w-full divide-y divide-purple-500/20 text-left">
+              <thead>
+                <tr className="bg-purple-950/70 text-[11px] font-bold text-purple-300 uppercase tracking-wider">
+                  <th scope="col" className="py-3.5 px-4 font-mono">Date</th>
+                  <th scope="col" className="py-3.5 px-4">Description</th>
+                  <th scope="col" className="py-3.5 px-4">Category</th>
+                  <th scope="col" className="py-3.5 px-4">Paid by</th>
+                  <th scope="col" className="py-3.5 px-4 text-right">Amount</th>
+                  <th scope="col" className="py-3.5 px-4">Split</th>
+                  <th scope="col" className="py-3.5 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-purple-500/15 text-sm">
+                {filteredExpenses.map(expense => (
+                  <tr
+                    key={expense.id}
+                    className="hover:bg-purple-900/30 transition-colors group"
+                  >
+                    {/* Date */}
+                    <td className="py-3.5 px-4 whitespace-nowrap text-purple-300 font-mono text-xs">
+                      {expense.date}
+                    </td>
+
+                    {/* Description */}
+                    <td className="py-3.5 px-4 font-bold text-white">
+                      {expense.description}
+                    </td>
+
+                    {/* Category */}
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold border ${getCategoryBadgeClass(
+                          expense.category
+                        )}`}
+                      >
+                        {expense.category}
+                      </span>
+                    </td>
+
+                    {/* Paid by */}
+                    <td className="py-3.5 px-4 whitespace-nowrap">
+                      <span className="font-semibold text-purple-100">
+                        {memberNameMap[expense.paidBy] || expense.paidBy}
+                      </span>
+                    </td>
+
+                    {/* Amount */}
+                    <td className="py-3.5 px-4 whitespace-nowrap text-right font-extrabold text-white font-mono">
+                      {formatPaiseToRupees(expense.amount)}
+                    </td>
+
+                    {/* Split info */}
+                    <td className="py-3.5 px-4 whitespace-nowrap text-purple-300 text-xs">
+                      {describeSplit(expense.split, members)}
+                    </td>
+
+                    {/* Action */}
+                    <td className="py-3.5 px-4 whitespace-nowrap text-center">
+                      <button
+                        type="button"
+                        onClick={() => setExpenseToDelete(expense)}
+                        className="p-1.5 text-purple-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition-colors"
+                        title={`Delete ${expense.description}`}
+                        aria-label={`Delete ${expense.description}`}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-sm">
-                  {filteredExpenses.map(expense => (
-                    <tr
-                      key={expense.id}
-                      className="hover:bg-slate-50/80 transition-colors group"
-                    >
-                      {/* Date */}
-                      <td className="py-3.5 px-4 whitespace-nowrap text-slate-600 font-mono text-xs">
-                        {expense.date}
-                      </td>
-
-                      {/* Description */}
-                      <td className="py-3.5 px-4 font-semibold text-slate-900">
-                        {expense.description}
-                      </td>
-
-                      {/* Category */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium border ${getCategoryBadgeClass(
-                            expense.category
-                          )}`}
-                        >
-                          {expense.category}
-                        </span>
-                      </td>
-
-                      {/* Paid by */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <span className="font-medium text-slate-800">
-                          {memberNameMap[expense.paidBy] || expense.paidBy}
-                        </span>
-                      </td>
-
-                      {/* Amount */}
-                      <td className="py-3.5 px-4 whitespace-nowrap text-right font-extrabold text-slate-900 font-mono">
-                        {formatPaiseToRupees(expense.amount)}
-                      </td>
-
-                      {/* Split info */}
-                      <td className="py-3.5 px-4 whitespace-nowrap text-slate-600 text-xs">
-                        {describeSplit(expense.split, members)}
-                      </td>
-
-                      {/* Action */}
-                      <td className="py-3.5 px-4 whitespace-nowrap text-center">
-                        <button
-                          type="button"
-                          onClick={() => setExpenseToDelete(expense)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                          title={`Delete ${expense.description}`}
-                          aria-label={`Delete ${expense.description}`}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </section>
@@ -372,23 +407,23 @@ export const ExpensesPage: React.FC = () => {
       {/* Delete Confirmation Modal */}
       {expenseToDelete && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
           role="dialog"
           aria-modal="true"
           aria-labelledby="delete-modal-title"
         >
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
+          <div className="glass-purple-card rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-purple-500/40">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 id="delete-modal-title" className="text-base font-bold text-slate-900">
+                <h3 id="delete-modal-title" className="text-base font-bold text-white">
                   Delete Expense?
                 </h3>
-                <p className="text-sm text-slate-600 mt-1">
+                <p className="text-sm text-purple-200/80 mt-1">
                   Are you sure you want to delete &ldquo;
-                  <span className="font-semibold">{expenseToDelete.description}</span>
+                  <span className="font-semibold text-white">{expenseToDelete.description}</span>
                   &rdquo; ({formatPaiseToRupees(expenseToDelete.amount)})?
                   All member balances will update immediately.
                 </p>
@@ -399,14 +434,14 @@ export const ExpensesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setExpenseToDelete(null)}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-medium text-purple-300 hover:bg-purple-900/50 hover:text-white transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={confirmDelete}
-                className="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-600 text-white hover:bg-rose-700 shadow-sm transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-bold bg-rose-600 text-white hover:bg-rose-500 shadow-lg shadow-rose-950/60 transition-colors"
               >
                 Yes, delete
               </button>
@@ -418,22 +453,22 @@ export const ExpensesPage: React.FC = () => {
       {/* Settle Up / Direct Debts Modal */}
       {showSettlementModal && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
           role="dialog"
           aria-modal="true"
           aria-labelledby="settle-modal-title"
         >
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="glass-purple-card rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 border border-purple-500/40">
+            <div className="flex items-center justify-between pb-3 border-b border-purple-500/20">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-2xl bg-purple-900/60 border border-purple-400/40 text-fuchsia-400 flex items-center justify-center">
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 id="settle-modal-title" className="text-base font-bold text-slate-900">
+                  <h3 id="settle-modal-title" className="text-base font-bold text-white">
                     Debt Simplification & Settlements
                   </h3>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-purple-300">
                     Fewest payments needed to completely square up the group
                   </p>
                 </div>
@@ -441,7 +476,7 @@ export const ExpensesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowSettlementModal(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                className="p-1 rounded-lg text-purple-400 hover:text-white hover:bg-purple-900/50"
                 aria-label="Close settlement modal"
               >
                 <X className="w-5 h-5" />
@@ -450,23 +485,23 @@ export const ExpensesPage: React.FC = () => {
 
             {settlements.length === 0 ? (
               <div className="text-center py-8">
-                <CheckCircle className="w-10 h-10 text-emerald-500 mx-auto mb-2" />
-                <p className="text-sm font-bold text-slate-900">Everyone is all settled up!</p>
-                <p className="text-xs text-slate-500 mt-0.5">No outstanding debts remain.</p>
+                <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto mb-2" />
+                <p className="text-sm font-bold text-white">Everyone is all settled up!</p>
+                <p className="text-xs text-purple-300 mt-0.5">No outstanding debts remain.</p>
               </div>
             ) : (
               <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
                 {settlements.map((s, idx) => (
                   <div
                     key={`${s.fromId}-${s.toId}-${idx}`}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-sm"
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-purple-950/60 border border-purple-500/30 text-sm"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900">{s.fromName}</span>
-                      <ArrowRight className="w-4 h-4 text-slate-400" />
-                      <span className="font-bold text-slate-900">{s.toName}</span>
+                      <span className="font-bold text-white">{s.fromName}</span>
+                      <ArrowRight className="w-4 h-4 text-purple-400" />
+                      <span className="font-bold text-white">{s.toName}</span>
                     </div>
-                    <div className="font-extrabold text-indigo-700 font-mono text-base">
+                    <div className="font-extrabold text-fuchsia-400 font-mono text-base">
                       {formatPaiseToRupees(s.amountPaise)}
                     </div>
                   </div>
@@ -478,7 +513,7 @@ export const ExpensesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowSettlementModal(false)}
-                className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors"
+                className="px-5 py-2 rounded-xl text-sm font-bold neon-btn text-white transition-colors"
               >
                 Done
               </button>

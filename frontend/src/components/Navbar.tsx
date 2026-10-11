@@ -8,69 +8,78 @@ import {
   CheckCircle2, 
   Menu, 
   X,
-  Sparkles
+  Compass
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+    `inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
       isActive
-        ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200'
-        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+        ? 'bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-md shadow-purple-900/50 border border-purple-400/40 text-neon-glow'
+        : 'text-purple-200/80 hover:text-white hover:bg-purple-900/40 border border-transparent'
     }`;
 
   const mobileNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+    `flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
       isActive
-        ? 'bg-indigo-600 text-white shadow-sm'
-        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+        ? 'bg-purple-600 text-white shadow-md'
+        : 'text-purple-200 hover:text-white hover:bg-purple-900/50'
     }`;
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/70 shadow-xs transition-all">
+    <header className="sticky top-0 z-40 glass-purple-nav">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 group-hover:scale-105 group-hover:shadow-indigo-500/40 transition-all">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+          {/* Brand Logo & Tag */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-purple-600/40 group-hover:scale-105 group-hover:shadow-purple-500/60 transition-all border border-purple-300/30">
+              <Compass className="w-5 h-5 animate-spin-slow" />
             </div>
             <div>
-              <div className="text-base font-extrabold text-slate-900 tracking-tight leading-tight flex items-center gap-1.5">
-                Trip Splitter <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200/80 shadow-2xs">Goa Edition</span>
+              <div className="text-base font-black tracking-tight leading-tight flex items-center gap-2 text-white">
+                <span>TravelTally</span>
+                <span className="text-[10px] tracking-widest font-extrabold uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-900/80 to-indigo-900/80 text-purple-200 border border-purple-500/40 shadow-xs">
+                  Goa Trip
+                </span>
               </div>
-              <div className="text-[11px] text-slate-400 font-medium">Recruiterflow Full Stack Suite</div>
+              <div className="text-[11px] font-mono tracking-wider font-semibold text-purple-400/90 flex items-center gap-1.5 mt-0.5">
+                <span>Track</span>
+                <span className="w-1 h-1 rounded-full bg-fuchsia-400" />
+                <span>Split</span>
+                <span className="w-1 h-1 rounded-full bg-purple-400" />
+                <span>Travel</span>
+              </div>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1.5" aria-label="Main Navigation">
             <NavLink to="/" end className={navLinkClasses}>
-              <Receipt className="w-4 h-4" />
+              <Receipt className="w-4 h-4 text-purple-300" />
               <span>Expenses</span>
             </NavLink>
 
             <NavLink to="/expenses/new" className={navLinkClasses}>
-              <PlusCircle className="w-4 h-4" />
+              <PlusCircle className="w-4 h-4 text-purple-300" />
               <span>Add expense</span>
             </NavLink>
 
-            <div className="h-5 w-px bg-slate-200 mx-2" aria-hidden="true" />
+            <div className="h-5 w-px bg-purple-500/20 mx-2" aria-hidden="true" />
 
             <NavLink to="/recruiter-bot" className={navLinkClasses} title="Section B: RecruiterBot Matching">
-              <Bot className="w-4 h-4 text-emerald-600" />
+              <Bot className="w-4 h-4 text-emerald-400" />
               <span>RecruiterBot</span>
             </NavLink>
 
             <NavLink to="/sql-detective" className={navLinkClasses} title="Section B: SQL Detective Challenge">
-              <Database className="w-4 h-4 text-blue-600" />
+              <Database className="w-4 h-4 text-sky-400" />
               <span>SQL Detective</span>
             </NavLink>
 
             <NavLink to="/qa-suite" className={navLinkClasses} title="Section A: Playwright QA Tests">
-              <CheckCircle2 className="w-4 h-4 text-amber-600" />
+              <CheckCircle2 className="w-4 h-4 text-amber-400" />
               <span>QA Suite</span>
             </NavLink>
           </nav>
@@ -80,7 +89,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-2 rounded-xl text-purple-200 hover:text-white hover:bg-purple-900/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
               aria-expanded={mobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -92,14 +101,14 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-4 space-y-1">
+        <div className="md:hidden border-t border-purple-500/20 bg-purple-950/95 backdrop-blur-2xl px-4 pt-3 pb-4 space-y-1">
           <NavLink
             to="/"
             end
             onClick={() => setMobileMenuOpen(false)}
             className={mobileNavLinkClasses}
           >
-            <Receipt className="w-4 h-4" />
+            <Receipt className="w-4 h-4 text-purple-300" />
             <span>Expenses</span>
           </NavLink>
 
@@ -108,18 +117,18 @@ export const Navbar: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className={mobileNavLinkClasses}
           >
-            <PlusCircle className="w-4 h-4" />
+            <PlusCircle className="w-4 h-4 text-purple-300" />
             <span>Add expense</span>
           </NavLink>
 
-          <div className="h-px bg-slate-200 my-2" />
+          <div className="h-px bg-purple-500/20 my-2" />
 
           <NavLink
             to="/recruiter-bot"
             onClick={() => setMobileMenuOpen(false)}
             className={mobileNavLinkClasses}
           >
-            <Bot className="w-4 h-4 text-emerald-600" />
+            <Bot className="w-4 h-4 text-emerald-400" />
             <span>RecruiterBot (Section B)</span>
           </NavLink>
 
@@ -128,7 +137,7 @@ export const Navbar: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className={mobileNavLinkClasses}
           >
-            <Database className="w-4 h-4 text-blue-600" />
+            <Database className="w-4 h-4 text-sky-400" />
             <span>SQL Detective (Section B)</span>
           </NavLink>
 
@@ -137,7 +146,7 @@ export const Navbar: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className={mobileNavLinkClasses}
           >
-            <CheckCircle2 className="w-4 h-4 text-amber-600" />
+            <CheckCircle2 className="w-4 h-4 text-amber-400" />
             <span>QA Suite (Section A)</span>
           </NavLink>
         </div>

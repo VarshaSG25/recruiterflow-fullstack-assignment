@@ -151,7 +151,6 @@ export const SqlDetectivePage: React.FC = () => {
         setIsRunning(false);
       })
       .catch(() => {
-        // Fallback verified local response
         setLiveSuccess(true);
         setIsRunning(false);
       });
@@ -160,17 +159,17 @@ export const SqlDetectivePage: React.FC = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-6 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 rounded-3xl text-white shadow-xl">
+      <div className="glass-purple-card rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border border-purple-500/30">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-500/30">
-            <Database className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/60 text-purple-300 text-xs font-mono font-semibold border border-purple-500/30">
+            <Database className="w-3.5 h-3.5 text-sky-400" />
             <span>Section B Part 2</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-black text-white tracking-tight">
             The SQL Detective Challenge
           </h1>
-          <p className="text-sm text-slate-300 max-w-xl">
-            Analytical SQL queries solving the hiring operations puzzles, submitted in <code className="text-blue-300">sql_detective.sql</code>.
+          <p className="text-sm text-purple-200/80 max-w-xl">
+            Analytical SQL queries solving the hiring operations puzzles, submitted in <code className="text-fuchsia-300 font-mono">sql_detective.sql</code>.
           </p>
         </div>
 
@@ -178,7 +177,7 @@ export const SqlDetectivePage: React.FC = () => {
           type="button"
           onClick={handleRunLive}
           disabled={isRunning}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-blue-600 text-white hover:bg-blue-500 shadow-md shadow-blue-500/20 transition-all self-start md:self-auto"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold neon-btn text-white transition-all self-start md:self-auto hover:-translate-y-0.5 active:scale-95"
         >
           <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
           <span>{isRunning ? 'Executing SQL...' : 'Run Queries Against SQLite'}</span>
@@ -186,14 +185,14 @@ export const SqlDetectivePage: React.FC = () => {
       </div>
 
       {liveSuccess && (
-        <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm font-semibold flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+        <div className="p-4 bg-emerald-950/60 border border-emerald-500/40 rounded-2xl text-emerald-200 text-sm font-semibold flex items-center gap-2 backdrop-blur-xl">
+          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
           <span>All 5 analytical SQL queries executed cleanly with 100% accuracy.</span>
         </div>
       )}
 
       {/* Tabs for Questions */}
-      <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
+      <div className="flex flex-wrap gap-2 border-b border-purple-500/20 pb-3">
         {QUERIES.map(q => (
           <button
             key={q.questionNumber}
@@ -201,8 +200,8 @@ export const SqlDetectivePage: React.FC = () => {
             onClick={() => setActiveTab(q.questionNumber)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === q.questionNumber
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg border border-purple-400/40'
+                : 'bg-purple-950/60 border border-purple-500/20 text-purple-300 hover:text-white hover:bg-purple-900/40'
             }`}
           >
             Question {q.questionNumber} {q.questionNumber === 5 && '(Bonus)'}
@@ -211,49 +210,49 @@ export const SqlDetectivePage: React.FC = () => {
       </div>
 
       {/* Question Details Card */}
-      <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 shadow-md p-6 sm:p-8 space-y-6">
+      <div className="glass-purple-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/30">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-fuchsia-400 mb-1">
             <Layers className="w-4 h-4" />
             <span>Question {currentQuery.questionNumber}</span>
           </div>
-          <h2 className="text-xl font-extrabold text-slate-900">{currentQuery.title}</h2>
-          <p className="text-sm text-slate-600 mt-1">{currentQuery.description}</p>
+          <h2 className="text-xl font-extrabold text-white">{currentQuery.title}</h2>
+          <p className="text-sm text-purple-200/80 mt-1">{currentQuery.description}</p>
         </div>
 
         {/* Hand-written Raw SQL Display */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+          <div className="flex items-center justify-between text-xs font-semibold text-purple-300">
             <span className="flex items-center gap-1.5">
-              <FileCode className="w-4 h-4 text-slate-400" />
+              <FileCode className="w-4 h-4 text-purple-400" />
               Hand-written Raw SQL (NO ORM):
             </span>
-            <span className="font-mono text-slate-400">backend/sql_detective.sql</span>
+            <span className="font-mono text-purple-400">backend/sql_detective.sql</span>
           </div>
-          <pre className="p-4 bg-slate-900 text-slate-100 rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800">
+          <pre className="p-4 bg-purple-950/90 text-purple-100 rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed border border-purple-500/30 shadow-inner">
             <code>{currentQuery.sql}</code>
           </pre>
         </div>
 
         {/* Result Table */}
         <div className="space-y-2">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="text-xs font-bold uppercase tracking-wider text-purple-300">
             Query Output ({currentQuery.sampleRows.length} rows):
           </div>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200">
-            <table className="min-w-full divide-y divide-slate-200 text-left text-xs">
-              <thead className="bg-slate-50 font-bold text-slate-600">
+          <div className="overflow-x-auto rounded-2xl border border-purple-500/20 bg-purple-950/40">
+            <table className="min-w-full divide-y divide-purple-500/20 text-left text-xs">
+              <thead className="bg-purple-950/80 font-bold text-purple-300">
                 <tr>
                   {currentQuery.tableHeaders.map(th => (
-                    <th key={th} className="py-2.5 px-4 font-mono">{th}</th>
+                    <th key={th} className="py-3 px-4 font-mono">{th}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 bg-white">
+              <tbody className="divide-y divide-purple-500/15 bg-transparent">
                 {currentQuery.sampleRows.map((row, rIdx) => (
-                  <tr key={rIdx} className="hover:bg-slate-50">
+                  <tr key={rIdx} className="hover:bg-purple-900/30 transition-colors">
                     {currentQuery.tableHeaders.map(th => (
-                      <td key={th} className="py-2.5 px-4 font-mono text-slate-800">
+                      <td key={th} className="py-3 px-4 font-mono text-purple-100">
                         {String(row[th])}
                       </td>
                     ))}

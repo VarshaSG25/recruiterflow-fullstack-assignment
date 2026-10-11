@@ -47,7 +47,6 @@ interface MatchResult {
   reason: string;
 }
 
-// Fallback seed candidates
 const SEED_CANDIDATES: Candidate[] = [
   { id: 1, name: 'Sherlock H.', skills: 'deduction, pattern-recognition, forensics', experience_years: 8, availability: 'Immediate', traits: 'analytical, blunt', quirk: 'Solves problems by eliminating the impossible; occasionally insufferable in standups.' },
   { id: 2, name: 'Hermione G.', skills: 'research, time-management, public-speaking', experience_years: 4, availability: '2 weeks', traits: 'detail-oriented, overachiever', quirk: 'Reads the entire documentation before writing a single line of code.' },
@@ -83,7 +82,6 @@ export const RecruiterBotPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [backendConnected, setBackendConnected] = useState<boolean>(false);
 
-  // Fetch matches from backend or compute locally
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
@@ -105,10 +103,8 @@ export const RecruiterBotPage: React.FC = () => {
         }
       })
       .catch(() => {
-        // Fallback computation
         if (isMounted) {
           setBackendConnected(false);
-          // Simple client-side fallback matching
           const selectedJob = SEED_JOBS.find(j => j.id === selectedJobId) || SEED_JOBS[0];
           const results = SEED_CANDIDATES.map(c => {
             const reqSkills = selectedJob.required_skills.split(',').map(s => s.trim().toLowerCase());
@@ -158,25 +154,25 @@ export const RecruiterBotPage: React.FC = () => {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl text-white shadow-xl">
+      <div className="glass-purple-card rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border border-purple-500/30">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold border border-indigo-500/30">
-            <Bot className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/60 text-purple-300 text-xs font-mono font-semibold border border-purple-500/30">
+            <Bot className="w-3.5 h-3.5 text-fuchsia-400" />
             <span>Section B Core Project</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-3xl font-black text-white tracking-tight">
             Build-a-Recruiter-Bot
           </h1>
-          <p className="text-sm text-slate-300 max-w-xl">
+          <p className="text-sm text-purple-200/80 max-w-xl">
             Candidate ingestion and deterministic matching service powered by raw SQL and multi-factor ranking.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
+          <span className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold ${
             backendConnected 
-              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' 
-              : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+              ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/40' 
+              : 'bg-amber-950/60 text-amber-300 border border-amber-500/40'
           }`}>
             <span className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
             <span>{backendConnected ? 'Express API: Connected (Port 4000)' : 'Client Engine Mode'}</span>
@@ -185,15 +181,15 @@ export const RecruiterBotPage: React.FC = () => {
       </div>
 
       {/* Mode Switcher */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-2xl">
+      <div className="flex items-center justify-between border-b border-purple-500/20 pb-4">
+        <div className="flex items-center gap-2 p-1.5 bg-purple-950/70 rounded-2xl border border-purple-500/20">
           <button
             type="button"
             onClick={() => setMode('job')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               mode === 'job'
-                ? 'bg-white text-indigo-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md border border-purple-400/40'
+                : 'text-purple-300 hover:text-white'
             }`}
           >
             Find Candidates for a Job
@@ -203,25 +199,25 @@ export const RecruiterBotPage: React.FC = () => {
             onClick={() => setMode('candidate')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               mode === 'candidate'
-                ? 'bg-white text-indigo-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md border border-purple-400/40'
+                : 'text-purple-300 hover:text-white'
             }`}
           >
             Find Jobs for a Candidate
           </button>
         </div>
 
-        <div className="text-xs text-slate-500">
-          Scoring: <strong className="text-slate-800">Skills (50%) + Exp (25%) + Culture (15%) + Avail (10%)</strong>
+        <div className="text-xs text-purple-300 font-mono">
+          Scoring: <strong className="text-white">Skills (50%) + Exp (25%) + Culture (15%) + Avail (10%)</strong>
         </div>
       </div>
 
       {/* Selector Toolbar */}
       {mode === 'job' ? (
-        <div className="bg-white/80 backdrop-blur-md p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
+        <div className="glass-purple-card p-5 rounded-3xl space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-              <Briefcase className="w-4 h-4 text-indigo-600" />
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+              <Briefcase className="w-4 h-4 text-fuchsia-400" />
               Select Job Opening:
             </span>
           </div>
@@ -234,15 +230,15 @@ export const RecruiterBotPage: React.FC = () => {
                 onClick={() => setSelectedJobId(job.id)}
                 className={`text-left p-3.5 rounded-2xl border transition-all ${
                   selectedJobId === job.id
-                    ? 'bg-gradient-to-br from-indigo-50 to-indigo-100/60 border-indigo-300 ring-2 ring-indigo-500/20 shadow-xs'
-                    : 'bg-white/90 border-slate-200 hover:border-slate-300 hover:bg-white'
+                    ? 'bg-gradient-to-br from-purple-900/80 to-indigo-950/80 border-purple-400/80 ring-2 ring-purple-500/30 shadow-lg text-white'
+                    : 'bg-purple-950/40 border-purple-500/20 text-purple-200 hover:border-purple-400/40 hover:bg-purple-900/40'
                 }`}
               >
-                <div className="font-bold text-slate-900 text-sm">{job.title}</div>
-                <div className="text-xs text-indigo-600 font-medium italic mt-0.5">
+                <div className="font-bold text-white text-sm">{job.title}</div>
+                <div className="text-xs text-fuchsia-400 font-medium italic mt-0.5">
                   &ldquo;{job.tagline}&rdquo;
                 </div>
-                <div className="text-[11px] text-slate-500 mt-2 flex items-center justify-between">
+                <div className="text-[11px] text-purple-300/80 mt-2 flex items-center justify-between">
                   <span>Min exp: {job.min_experience} yrs</span>
                   <span>Required: {job.required_skills.split(',').length} skills</span>
                 </div>
@@ -250,20 +246,20 @@ export const RecruiterBotPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+          <div className="pt-2 border-t border-purple-500/20 flex flex-wrap items-center justify-between text-xs text-purple-300 gap-2">
             <div>
-              <strong>Required skills:</strong> {activeJob.required_skills}
+              <strong className="text-white">Required skills:</strong> {activeJob.required_skills}
             </div>
             <div>
-              <strong>Culture keywords:</strong> {activeJob.culture_keywords}
+              <strong className="text-white">Culture keywords:</strong> {activeJob.culture_keywords}
             </div>
           </div>
         </div>
       ) : (
-        <div className="bg-white/80 backdrop-blur-md p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
+        <div className="glass-purple-card p-5 rounded-3xl space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-              <UserCheck className="w-4 h-4 text-indigo-600" />
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+              <UserCheck className="w-4 h-4 text-fuchsia-400" />
               Select Candidate:
             </span>
           </div>
@@ -274,23 +270,23 @@ export const RecruiterBotPage: React.FC = () => {
                 key={c.id}
                 type="button"
                 onClick={() => setSelectedCandidateId(c.id)}
-                className={`text-left p-3 rounded-xl border transition-all ${
+                className={`text-left p-3 rounded-2xl border transition-all ${
                   selectedCandidateId === c.id
-                    ? 'bg-indigo-50 border-indigo-300 ring-2 ring-indigo-500/20'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
+                    ? 'bg-gradient-to-br from-purple-900/80 to-indigo-950/80 border-purple-400/80 ring-2 ring-purple-500/30 shadow-lg text-white'
+                    : 'bg-purple-950/40 border-purple-500/20 text-purple-200 hover:border-purple-400/40 hover:bg-purple-900/40'
                 }`}
               >
-                <div className="font-bold text-slate-900 text-xs truncate">{c.name}</div>
-                <div className="text-[10px] text-slate-500 mt-1">
+                <div className="font-bold text-white text-xs truncate">{c.name}</div>
+                <div className="text-[10px] text-purple-300/80 mt-1">
                   {c.experience_years} yrs • {c.availability}
                 </div>
               </button>
             ))}
           </div>
 
-          <div className="pt-2 border-t border-slate-100 text-xs text-slate-600 space-y-1">
-            <div><strong>Skills:</strong> {activeCandidate.skills}</div>
-            <div><strong>Quirk:</strong> &ldquo;{activeCandidate.quirk}&rdquo;</div>
+          <div className="pt-2 border-t border-purple-500/20 text-xs text-purple-300 space-y-1">
+            <div><strong className="text-white">Skills:</strong> {activeCandidate.skills}</div>
+            <div><strong className="text-white">Quirk:</strong> &ldquo;{activeCandidate.quirk}&rdquo;</div>
           </div>
         </div>
       )}
@@ -298,12 +294,12 @@ export const RecruiterBotPage: React.FC = () => {
       {/* Matches Grid */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Award className="w-5 h-5 text-amber-500" />
+          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <Award className="w-5 h-5 text-fuchsia-400" />
             <span>Ranked Matches ({matches.length})</span>
           </h2>
           {isLoading && (
-            <span className="text-xs text-slate-400 flex items-center gap-1">
+            <span className="text-xs text-purple-300 flex items-center gap-1">
               <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Computing...
             </span>
           )}
@@ -315,10 +311,10 @@ export const RecruiterBotPage: React.FC = () => {
             return (
               <div
                 key={`${match.candidateId}-${match.jobId}`}
-                className={`p-5 rounded-3xl border transition-all backdrop-blur-md hover:-translate-y-0.5 hover:shadow-lg ${
+                className={`p-5 rounded-3xl border transition-all backdrop-blur-xl hover:-translate-y-1 hover:shadow-2xl ${
                   isTopMatch
-                    ? 'bg-gradient-to-br from-white/95 to-indigo-50/60 border-indigo-300 shadow-md ring-2 ring-indigo-500/20'
-                    : 'bg-white/80 border-white/80 shadow-xs hover:border-slate-200'
+                    ? 'bg-gradient-to-br from-purple-950/90 via-indigo-950/70 to-purple-950/90 border-fuchsia-400/60 shadow-xl ring-2 ring-fuchsia-500/30'
+                    : 'glass-purple-card'
                 }`}
               >
                 {/* Header with Rank & Score */}
@@ -327,62 +323,62 @@ export const RecruiterBotPage: React.FC = () => {
                     <span
                       className={`w-7 h-7 rounded-xl flex items-center justify-center font-extrabold text-xs ${
                         isTopMatch
-                          ? 'bg-amber-100 text-amber-900 border border-amber-300'
-                          : 'bg-slate-100 text-slate-700'
+                          ? 'bg-fuchsia-900/70 text-fuchsia-200 border border-fuchsia-400/50'
+                          : 'bg-purple-950/60 text-purple-300 border border-purple-500/30'
                       }`}
                     >
                       #{rank + 1}
                     </span>
                     <div>
-                      <h3 className="font-bold text-slate-900 text-base">
+                      <h3 className="font-bold text-white text-base">
                         {mode === 'job' ? match.candidateName : match.jobTitle}
                       </h3>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-purple-300">
                         {mode === 'job' ? `Candidate #${match.candidateId}` : `Role #${match.jobId}`}
                       </div>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <div className="text-2xl font-black text-indigo-700 font-mono tracking-tight">
+                    <div className="text-2xl font-black text-fuchsia-400 font-mono tracking-tight text-neon-glow">
                       {match.score}
-                      <span className="text-xs text-slate-400 font-normal">/100</span>
+                      <span className="text-xs text-purple-300 font-normal">/100</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Score Breakdown Bar */}
-                <div className="space-y-1.5 mb-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-[11px]">
-                  <div className="flex justify-between text-slate-600">
-                    <span>Skills: <strong>{match.scoreBreakdown.skillsScore}/50</strong></span>
-                    <span>Exp: <strong>{match.scoreBreakdown.experienceScore}/25</strong></span>
-                    <span>Culture: <strong>{match.scoreBreakdown.cultureScore}/15</strong></span>
-                    <span>Avail: <strong>{match.scoreBreakdown.availabilityScore}/10</strong></span>
+                <div className="space-y-1.5 mb-3 bg-purple-950/60 p-2.5 rounded-xl border border-purple-500/20 text-[11px]">
+                  <div className="flex justify-between text-purple-200">
+                    <span>Skills: <strong className="text-white">{match.scoreBreakdown.skillsScore}/50</strong></span>
+                    <span>Exp: <strong className="text-white">{match.scoreBreakdown.experienceScore}/25</strong></span>
+                    <span>Culture: <strong className="text-white">{match.scoreBreakdown.cultureScore}/15</strong></span>
+                    <span>Avail: <strong className="text-white">{match.scoreBreakdown.availabilityScore}/10</strong></span>
                   </div>
-                  <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden flex">
-                    <div style={{ width: `${(match.scoreBreakdown.skillsScore / 50) * 50}%` }} className="bg-indigo-500 h-full" />
-                    <div style={{ width: `${(match.scoreBreakdown.experienceScore / 25) * 25}%` }} className="bg-emerald-500 h-full" />
-                    <div style={{ width: `${(match.scoreBreakdown.cultureScore / 15) * 15}%` }} className="bg-amber-500 h-full" />
-                    <div style={{ width: `${(match.scoreBreakdown.availabilityScore / 10) * 10}%` }} className="bg-blue-500 h-full" />
+                  <div className="w-full bg-purple-950 h-1.5 rounded-full overflow-hidden flex border border-purple-500/20">
+                    <div style={{ width: `${(match.scoreBreakdown.skillsScore / 50) * 50}%` }} className="bg-purple-500 h-full" />
+                    <div style={{ width: `${(match.scoreBreakdown.experienceScore / 25) * 25}%` }} className="bg-emerald-400 h-full" />
+                    <div style={{ width: `${(match.scoreBreakdown.cultureScore / 15) * 15}%` }} className="bg-amber-400 h-full" />
+                    <div style={{ width: `${(match.scoreBreakdown.availabilityScore / 10) * 10}%` }} className="bg-sky-400 h-full" />
                   </div>
                 </div>
 
                 {/* Skills tags */}
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {match.matchingSkills.map((s: string) => (
-                    <span key={s} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span key={s} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/40">
                       <CheckCircle2 className="w-3 h-3" /> {s}
                     </span>
                   ))}
                   {match.missingSkills.map((s: string) => (
-                    <span key={s} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                    <span key={s} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-rose-950/60 text-rose-300 border border-rose-500/40">
                       <XCircle className="w-3 h-3" /> missing: {s}
                     </span>
                   ))}
                 </div>
 
                 {/* Human-readable Reason */}
-                <div className="text-xs text-slate-600 bg-slate-50/70 p-3 rounded-xl border border-slate-100 italic">
+                <div className="text-xs text-purple-200/90 bg-purple-950/50 p-3 rounded-2xl border border-purple-500/20 italic">
                   &ldquo;{match.reason}&rdquo;
                 </div>
               </div>
