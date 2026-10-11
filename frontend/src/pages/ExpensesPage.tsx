@@ -137,11 +137,8 @@ export const ExpensesPage: React.FC = () => {
               <Compass className="w-3.5 h-3.5 text-fuchsia-400" />
               <span>Track • Split • Travel</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+            <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight flex items-center">
               <span>TravelTally</span>
-              <span className="text-sm font-bold font-mono text-purple-300 px-3 py-1 rounded-xl bg-purple-900/50 border border-purple-500/30">
-                Goa Edition
-              </span>
             </h1>
             <p className="text-sm sm:text-base text-purple-200/80 max-w-xl">
               Shared trip expense tracking with zero-loss paisa splitting for Aarav, Diya, Kabir, Meera, and Rohan.
@@ -296,7 +293,7 @@ export const ExpensesPage: React.FC = () => {
               type="button"
               onClick={() => dispatch(resetToSampleData())}
               className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-purple-200 hover:text-white bg-purple-900/60 hover:bg-purple-800/70 border border-purple-500/30 rounded-xl transition-all shadow-xs"
-              title="Reset data back to original Goa trip sample"
+              title="Reset data back to sample trip expenses"
             >
               <RotateCcw className="w-3.5 h-3.5 text-fuchsia-400" />
               <span>Reset sample</span>

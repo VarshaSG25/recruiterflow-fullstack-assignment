@@ -38,11 +38,8 @@ export const Navbar: React.FC = () => {
               <Compass className="w-5 h-5 animate-spin-slow" />
             </div>
             <div>
-              <div className="text-base font-black tracking-tight leading-tight flex items-center gap-2 text-white">
+              <div className="text-base sm:text-lg font-black tracking-tight leading-tight text-white">
                 <span>TravelTally</span>
-                <span className="text-[10px] tracking-widest font-extrabold uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-900/80 to-indigo-900/80 text-purple-200 border border-purple-500/40 shadow-xs">
-                  Goa Trip
-                </span>
               </div>
               <div className="text-[11px] font-mono tracking-wider font-semibold text-purple-400/90 flex items-center gap-1.5 mt-0.5">
                 <span>Track</span>

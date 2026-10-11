@@ -77,7 +77,7 @@ export const expensesSlice = createSlice({
       state.expenses = initialData.expenses as Expense[];
       state.selectedCategory = 'All';
       persistState(state.members, state.expenses);
-      state.notification = 'Reset all data back to original Goa trip sample!';
+      state.notification = 'Reset all data back to original sample expenses!';
     },
   },
 });
