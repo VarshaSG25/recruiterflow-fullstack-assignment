@@ -53,7 +53,7 @@ export const QaSuitePage: React.FC = () => {
 
       {/* Highlights Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 bg-white/80 backdrop-blur-md rounded-3xl border border-white/80 shadow-xs space-y-2 hover:-translate-y-0.5 transition-all">
           <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
             <Layers className="w-5 h-5" />
           </div>
@@ -63,7 +63,7 @@ export const QaSuitePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 bg-white/80 backdrop-blur-md rounded-3xl border border-white/80 shadow-xs space-y-2 hover:-translate-y-0.5 transition-all">
           <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
             <Compass className="w-5 h-5" />
           </div>
@@ -73,7 +73,7 @@ export const QaSuitePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 bg-white/80 backdrop-blur-md rounded-3xl border border-white/80 shadow-xs space-y-2 hover:-translate-y-0.5 transition-all">
           <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <Globe className="w-5 h-5" />
           </div>
@@ -85,7 +85,7 @@ export const QaSuitePage: React.FC = () => {
       </div>
 
       {/* Tests Table */}
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 space-y-4">
+      <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 shadow-xs p-6 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold text-slate-900">
             Automation Test Matrix

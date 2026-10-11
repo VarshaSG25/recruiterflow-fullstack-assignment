@@ -150,7 +150,7 @@ export const AddExpensePage: React.FC = () => {
         </span>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-8">
+      <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 shadow-md p-6 sm:p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
             Add an expense

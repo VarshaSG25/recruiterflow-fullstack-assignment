@@ -211,7 +211,7 @@ export const SqlDetectivePage: React.FC = () => {
       </div>
 
       {/* Question Details Card */}
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-8 space-y-6">
+      <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 shadow-md p-6 sm:p-8 space-y-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">
             <Layers className="w-4 h-4" />

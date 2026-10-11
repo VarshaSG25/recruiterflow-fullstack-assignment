@@ -218,7 +218,7 @@ export const RecruiterBotPage: React.FC = () => {
 
       {/* Selector Toolbar */}
       {mode === 'job' ? (
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+        <div className="bg-white/80 backdrop-blur-md p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Briefcase className="w-4 h-4 text-indigo-600" />
@@ -232,10 +232,10 @@ export const RecruiterBotPage: React.FC = () => {
                 key={job.id}
                 type="button"
                 onClick={() => setSelectedJobId(job.id)}
-                className={`text-left p-3.5 rounded-xl border transition-all ${
+                className={`text-left p-3.5 rounded-2xl border transition-all ${
                   selectedJobId === job.id
-                    ? 'bg-indigo-50 border-indigo-300 ring-2 ring-indigo-500/20'
-                    : 'bg-white border-slate-200 hover:border-slate-300'
+                    ? 'bg-gradient-to-br from-indigo-50 to-indigo-100/60 border-indigo-300 ring-2 ring-indigo-500/20 shadow-xs'
+                    : 'bg-white/90 border-slate-200 hover:border-slate-300 hover:bg-white'
                 }`}
               >
                 <div className="font-bold text-slate-900 text-sm">{job.title}</div>
@@ -260,7 +260,7 @@ export const RecruiterBotPage: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+        <div className="bg-white/80 backdrop-blur-md p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <UserCheck className="w-4 h-4 text-indigo-600" />
@@ -315,10 +315,10 @@ export const RecruiterBotPage: React.FC = () => {
             return (
               <div
                 key={`${match.candidateId}-${match.jobId}`}
-                className={`p-5 rounded-2xl border transition-all ${
+                className={`p-5 rounded-3xl border transition-all backdrop-blur-md hover:-translate-y-0.5 hover:shadow-lg ${
                   isTopMatch
-                    ? 'bg-white border-indigo-300 shadow-md ring-2 ring-indigo-500/10'
-                    : 'bg-white border-slate-200 shadow-2xs hover:border-slate-300'
+                    ? 'bg-gradient-to-br from-white/95 to-indigo-50/60 border-indigo-300 shadow-md ring-2 ring-indigo-500/20'
+                    : 'bg-white/80 border-white/80 shadow-xs hover:border-slate-200'
                 }`}
               >
                 {/* Header with Rank & Score */}

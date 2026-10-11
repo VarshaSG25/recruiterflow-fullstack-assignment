@@ -23,6 +23,49 @@ try {
   seedDatabase();
 }
 
+// Root landing page with interactive API documentation and link to Frontend UI
+app.get('/', (_req: Request, res: Response) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>RecruiterBot API Server</title>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
+        .card { max-width: 650px; width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 20px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+        h1 { color: #818cf8; margin-top: 0; font-size: 24px; }
+        p { color: #94a3b8; line-height: 1.6; font-size: 14px; }
+        .btn { display: inline-block; background: #6366f1; color: white; padding: 12px 24px; border-radius: 12px; font-weight: bold; text-decoration: none; margin: 16px 0; transition: background 0.2s; }
+        .btn:hover { background: #4f46e5; }
+        .endpoints { background: #0f172a; border-radius: 12px; padding: 16px; margin-top: 20px; border: 1px solid #334155; }
+        .endpoint { margin: 8px 0; font-family: monospace; font-size: 13px; }
+        .endpoint a { color: #38bdf8; text-decoration: none; }
+        .endpoint a:hover { text-decoration: underline; }
+        .badge { background: #334155; color: #cbd5e1; padding: 2px 8px; border-radius: 6px; font-size: 11px; margin-right: 8px; }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <h1>🤖 RecruiterBot Backend API</h1>
+        <p>This is the <strong>Backend API Service</strong> running on <strong>Port 4000</strong>.</p>
+        <p>Looking for the <strong>visual website &amp; UI</strong>? Open the Frontend app running on Port 3000:</p>
+        <a href="http://localhost:3000" class="btn">👉 Open Frontend UI (http://localhost:3000)</a>
+        
+        <div class="endpoints">
+          <div style="font-weight: bold; color: #94a3b8; margin-bottom: 12px; font-size: 12px; text-transform: uppercase;">Available API Endpoints:</div>
+          <div class="endpoint"><span class="badge">GET</span><a href="/jobs">/jobs</a> - List all 6 job openings</div>
+          <div class="endpoint"><span class="badge">GET</span><a href="/jobs/1/matches">/jobs/1/matches</a> - Ranked candidates for Backend Detective</div>
+          <div class="endpoint"><span class="badge">GET</span><a href="/candidates">/candidates</a> - List all 15 fictional candidates</div>
+          <div class="endpoint"><span class="badge">GET</span><a href="/candidates/1/matches">/candidates/1/matches</a> - Ranked jobs for Sherlock Holmes</div>
+          <div class="endpoint"><span class="badge">GET</span><a href="/sql-detective/run">/sql-detective/run</a> - Run SQL Detective queries</div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `);
+});
+
 /**
  * Health check
  */

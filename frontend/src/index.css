@@ -4,6 +4,35 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 min-h-screen antialiased;
+    @apply text-slate-900 antialiased;
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.09) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
+      radial-gradient(at 50% 40%, rgba(56, 189, 248, 0.06) 0px, transparent 60%),
+      radial-gradient(at 20% 90%, rgba(236, 72, 153, 0.05) 0px, transparent 50%),
+      radial-gradient(at 90% 95%, rgba(99, 102, 241, 0.07) 0px, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
+}
+
+/* Aesthetic Dot Grid Background Mesh */
+.bg-mesh-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+}
+
+/* Aesthetic Glassmorphic Card */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* Subtle Glowing Shimmer */
+.glow-accent {
+  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
 }

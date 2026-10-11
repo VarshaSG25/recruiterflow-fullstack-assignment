@@ -179,23 +179,23 @@ export const ExpensesPage: React.FC = () => {
             return (
               <div
                 key={b.memberId}
-                className={`p-4 rounded-2xl border transition-all ${
+                className={`p-4 rounded-2xl border transition-all backdrop-blur-md hover:-translate-y-0.5 hover:shadow-md ${
                   isGetsBack
-                    ? 'bg-emerald-50/70 border-emerald-200 shadow-2xs'
+                    ? 'bg-gradient-to-br from-emerald-50/90 to-teal-50/70 border-emerald-200/90 shadow-xs'
                     : isOwes
-                    ? 'bg-rose-50/70 border-rose-200 shadow-2xs'
-                    : 'bg-white border-slate-200 shadow-2xs'
+                    ? 'bg-gradient-to-br from-rose-50/90 to-orange-50/70 border-rose-200/90 shadow-xs'
+                    : 'bg-white/85 border-slate-200/90 shadow-xs'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <span className="font-bold text-slate-900 text-sm">{b.name}</span>
                   <span
-                    className={`text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${
                       isGetsBack
-                        ? 'bg-emerald-100 text-emerald-800'
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
                         : isOwes
-                        ? 'bg-rose-100 text-rose-800'
-                        : 'bg-slate-100 text-slate-600'
+                        ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                        : 'bg-slate-100 text-slate-600 border border-slate-200'
                     }`}
                   >
                     {isGetsBack ? 'credit' : isOwes ? 'debt' : 'settled'}
@@ -223,7 +223,7 @@ export const ExpensesPage: React.FC = () => {
       </section>
 
       {/* Filter & Total Summary Toolbar */}
-      <section className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <section className="bg-white/80 backdrop-blur-md p-4 sm:p-5 rounded-3xl border border-white/80 shadow-xs space-y-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Category filter pills */}
           <div className="flex flex-wrap items-center gap-1.5">
